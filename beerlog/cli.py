@@ -27,18 +27,20 @@ def add(
 
 
 @main.command("list")
-def list_beers(name: Optional[str] = None,
-               style: Optional[str] = None,
-               flavor: Optional[int] = None,
-               image: Optional[int] = None,
-               cost: Optional[int] = None):
+def list_beers(
+    name: Optional[str] = None,
+    style: Optional[str] = None,
+    flavor: Optional[int] = None,
+    image: Optional[int] = None,
+    cost: Optional[int] = None,
+):
     """Lists beers from the database."""
     beers = get_beers_from_database()
     table = Table(title="\N{beer mug} Beerlog \N{beer mug}")
     headers = ["id", "name", "style", "rate", "date"]
     for header in headers:
         table.add_column(header, style="magenta")
-    
+
     for beer in beers:
         beer.date = beer.date.strftime("%Y-%m-%d %H:%M:%S")
         values = [str(getattr(beer, header)) for header in headers]
